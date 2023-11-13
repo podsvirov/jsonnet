@@ -13,6 +13,7 @@ option(BUILD_STATIC_LIBS "Build a static libjsonnet." ON)
 option(BUILD_SHARED_BINARIES "Link binaries to the shared libjsonnet instead of the static one." OFF)
 option(USE_SYSTEM_GTEST "Use system-provided gtest library" OFF)
 option(USE_SYSTEM_JSON "Use the system-provided json library" OFF)
+option(USE_SYSTEM_RYML "Use the system-provided rapidyaml library" OFF)
 set(GLOBAL_OUTPUT_PATH_SUFFIX "" CACHE STRING
     "Output artifacts directory.")
 
@@ -102,6 +103,12 @@ else()
     add_subdirectory(third_party/json)
 endif()
 
+if(USE_SYSTEM_RYML)
+    find_package(ryml REQUIRED)
+else()
+    add_subdirectory(third_party/rapidyaml/rapidyaml ryml)
+endif()
+
 # Look for libraries in global output path.
 link_directories(${GLOBAL_OUTPUT_PATH})
 
@@ -121,7 +128,6 @@ endif()
 add_subdirectory(include)
 add_subdirectory(stdlib)
 add_subdirectory(third_party/md5)
-add_subdirectory(third_party/rapidyaml/rapidyaml ryml)
 add_subdirectory(core)
 add_subdirectory(cpp)
 add_subdirectory(cmd)

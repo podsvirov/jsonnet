@@ -26,8 +26,13 @@ limitations under the License.
 #include "json.hpp"
 #include "md5.h"
 #include "parser.h"
+#ifdef USE_SYSTEM_RYML
+#include "ryml/ryml_std.hpp" // include this before any other ryml header
+#include "ryml/ryml.hpp"
+#else // USE_SYSTEM_RYML
 #include "ryml_std.hpp" // include this before any other ryml header
 #include "ryml.hpp"
+#endif // USE_SYSTEM_RYML
 #include "state.h"
 #include "static_analysis.h"
 #include "string_utils.h"

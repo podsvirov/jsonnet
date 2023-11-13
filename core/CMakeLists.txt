@@ -31,6 +31,9 @@ set(LIBJSONNET_SOURCE
 add_library(libjsonnet SHARED ${LIBJSONNET_HEADERS} ${LIBJSONNET_SOURCE})
 add_dependencies(libjsonnet md5 stdlib)
 target_link_libraries(libjsonnet md5 nlohmann_json::nlohmann_json ryml)
+if(USE_SYSTEM_RYML)
+    target_compile_definitions(libjsonnet USE_SYSTEM_RYML)
+endif()
 
 file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/../include/libjsonnet.h JSONNET_VERSION_DEF
      REGEX "[#]define[ \t]+LIB_JSONNET_VERSION[ \t]+")
